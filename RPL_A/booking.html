@@ -1,0 +1,272 @@
+<?php
+session_start();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indekos Aurin's</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #007bff;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            /* Warna biru untuk navbar */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #ffffff;
+            /* Warna teks putih untuk navbar-brand */
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            /* Atur tinggi gambar sesuai kebutuhan */
+            margin-right: 10px;
+            /* Jarak margin kanan antara teks dan gambar */
+        }
+
+        .navbar-toggler {
+            border-color: #ffffff;
+            /* Warna putih untuk tombol toggler */
+        }
+
+        .navbar-toggler-icon {
+            background-color: #ffffff;
+            /* Warna putih untuk ikon toggler */
+        }
+
+        .navbar-text {
+            color: #ffffff;
+            /* Warna putih untuk teks di navbar */
+            margin-right: 20px;
+            /* Jarak margin kanan */
+        }
+
+        .btn-menu {
+            background-color: #ffffff;
+            color: #007bff;
+            /* Warna teks biru untuk menu */
+            border: 1px solid #007bff;
+            padding: 8px 16px;
+            margin-right: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .btn-menu:hover {
+            background-color: #007bff;
+            color: #ffffff;
+            /* Teks putih saat hover */
+            transform: scale(1.1);
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            padding: 10px;
+            width: 200px;
+            top: 100%;
+            right: 0;
+        }
+
+        .submenu a {
+            color: #007bff;
+            text-decoration: none;
+            display: block;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .submenu a:hover {
+            color: #0056b3;
+        }
+
+        .container {
+            margin-top: 80px;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .container h2 {
+            color: #007bff;
+            border-bottom: 1px solid #007bff;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+        .ketentuan-container {
+            margin-top: 30px;
+        }
+
+        .ketentuan-container h3 {
+            color: #007bff;
+            border-bottom: 1px solid #007bff;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .ketentuan-container ul {
+            margin-bottom: 20px;
+            list-style-type: decimal;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .checkbox-container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-container label {
+            display: block;
+            font-weight: normal;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .checkbox-container button[type="submit"] {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .checkbox-container button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .ketentuan-container ul li {
+            margin-bottom: 10px;
+            position: relative;
+            list-style-type: decimal;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <a class="navbar-brand" href="#">
+            <img src="logo2-removebg-preview.png">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <button class="nav-link btn btn-menu" id="btnMenu" onclick="toggleMenu()">Pilihan Menu</button>
+                    <div class="submenu" id="submenu">
+                        <a class="dropdown-item" href="booking.php">Data Diri</a>
+                        <a class="dropdown-item" href="pemilihankmr.php">Pemilihan Kamar</a>
+                        <a class="dropdown-item" href="pembayaran.php">Pembayaran</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div id="home-content" class="content-section active">
+            <h2 id="home">Halaman Beranda</h2>
+            <p>Tata Cara Pendaftaran:</p>
+            <ol>
+                <li>
+                    <strong>Isi Data Diri:</strong><br>
+                    Calon penghuni wajib mengisi formulir dengan lengkap dan akurat, termasuk informasi pribadi seperti
+                    nama lengkap, alamat email, dan nomor telepon.
+                </li>
+                <li>
+                    <strong>Pemilihan Kamar:</strong><br>
+                    Setelah mengisi data diri, calon penghuni harus memilih kamar sesuai dengan preferensi dan
+                    ketersediaan yang tertera.
+                </li>
+                <li>
+                    <strong>Submit Bukti Pembayaran:</strong><br>
+                    Calon penghuni diharuskan untuk mengunggah bukti pembayaran sesuai dengan ketentuan yang berlaku.
+                </li>
+            </ol>
+            <p><strong>Catatan Penting:</strong><br>
+                - Jika dalam waktu 24 jam status pembayaran tidak berubah, harap segera hubungi nomor kontak yang
+                tercantum untuk informasi lebih lanjut. Dengan mengikuti tata cara di atas, proses pendaftaran
+                diharapkan berjalan lancar dan efisien. Terima kasih atas kerjasama Anda. <br>
+                - Pastikan menggunakan email yang sama untuk melakukan proses pemesanan </p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS dan jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Script Custom -->
+    <script>
+        // Function untuk toggle menu dropdown
+        function toggleMenu() {
+            var submenu = document.getElementById('submenu');
+            submenu.style.display = (submenu.style.display == 'block') ? 'none' : 'block';
+        }
+
+        // Function untuk menampilkan konten sesuai dengan tombol dropdown yang diklik
+        function showContent(id) {
+            // Semua konten disembunyikan terlebih dahulu
+            var contents = document.querySelectorAll('.content-section');
+            contents.forEach(function (content) {
+                content.classList.remove('active');
+            });
+
+            // Tampilkan konten yang sesuai dengan tombol yang diklik
+            var content = document.querySelector(id + '-content');
+            if (content) {
+                content.classList.add('active');
+            }
+        }
+    </script>
+</body>
+
+</html>
